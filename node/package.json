@@ -1,0 +1,15 @@
+{
+    "name": "online-users",
+    "version": "0.0.1",
+    "dependencies": {
+        "socket.io": "latest",
+        "bytebuffer": "latest",
+        "protobufjs": "latest",
+        "node-inspector": "latest",
+        "node-statsd": "latest",
+        "usage":"latest",
+        "os-utils": "latest",
+        "memwatch": "latest",
+        "heapdump": "latest"
+    }
+}

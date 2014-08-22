@@ -1,0 +1,138 @@
+// How to generate
+// ===============
+// Unix
+// $ protoc src/common/Protocol.proto --java_out=src
+//
+// Windows
+// .\tools\protobuf\protoc.exe src\common\Protocol.proto --java_out=src
+//
+// Add @SuppressWarnings("all") to the generated code not to pollute IDE task list.
+
+package common;
+
+option java_package = "common";
+option optimize_for = SPEED;
+
+// ==============================================================================================================
+// Envelope is used as a protoBuffer Wrapper to encapsulate all kind of messages under a common one.
+// The decoder should extract the protocolBuffer object type from it.
+// ==============================================================================================================
+message Envelope {
+    enum Type {
+        // Every message type sent through the enveloper must be defined here, if you try to envelope a message that is not listed here an exception will be thrown.
+        // Inner classes are separated by underscores.
+        // Example: a Protocol.Outer.Inner message should be defined as Outer_Inner = XXXXXX
+        // Requests (Start 1000, Step 20 between different type of requests) --------------
+                Nodejs_GetRequest = 1001;
+
+        // Responses (Start 5000, 20 between different type of responses) ----------------
+                SuccessResponse = 5001;
+                ExceptionResponse = 5002;
+                BooleanResponse = 5003;
+                MultiBooleanResponse = 5004;
+                TotalResponse = 5005;
+                IntegerResponse = 5006;
+                MultiIntegerResponse = 5007;
+                LongResponse = 5008;
+                MultiLongResponse = 5009;
+                IntegerListResponse = 5010;
+                StringResponse = 5011;
+                KeyValueResponse = 5012;
+    }
+    required Type protobufType = 1;
+    required bytes protobufData = 2;
+}
+// ==============================================================================================================
+// Envelope ends here
+// ==============================================================================================================
+
+message SuccessResponse {/* No data required */}
+
+message BooleanResponse {
+    optional bool result = 1 [default = true];
+    optional int64 timestamp = 2;
+    optional int64 age = 3; // Optional milliseconds age of timestamp
+    optional int32 ownerId = 4; // Optional, placeholder for additional/related int32 data
+    optional string ownerType = 5; // Optional, placeholder for additional/related string data
+}
+message MultiBooleanResponse {
+    repeated BooleanResponse items = 1;
+}
+
+message TotalResponse {
+    optional int64 total = 1 [default = 0];
+    optional int64 timestamp = 2;
+    optional int64 age = 3; // Optional milliseconds age of timestamp
+    optional int32 ownerId = 4; // Optional, placeholder for additional/related int32 data
+    optional string ownerType = 5; // Optional, placeholder for additional/related string data
+}
+
+message IntegerResponse {
+    optional int32 value = 1 [default = 0];
+    optional int64 timestamp = 2; // Optional millisecond POSIX
+    optional int64 age = 3; // Optional milliseconds age of timestamp
+    optional int32 ownerId = 4; // Optional, placeholder for additional/related int32 data
+    optional string ownerType = 5; // Optional, placeholder for additional/related string data
+}
+message MultiIntegerResponse {
+    repeated IntegerResponse items = 1;
+}
+
+message LongResponse {
+    optional int64 value = 1 [default = 0];
+    optional int64 timestamp = 2;
+    optional int64 age = 3; // Optional milliseconds age of timestamp
+    optional int32 ownerId = 4; // Optional, placeholder for additional/related int32 data
+    optional string ownerType = 5; // Optional, placeholder for additional/related string data
+}
+message MultiLongResponse {
+    repeated LongResponse items = 1;
+}
+
+message IntegerListResponse {
+    repeated int32 item = 1;
+    optional int32 ownerId = 4; // Optional, placeholder for additional/related int32 data
+    optional string ownerType = 5; // Optional, placeholder for additional/related string data
+}
+
+message StringResponse {
+    optional string value = 1;
+    optional int64 timestamp = 2;
+}
+
+message KeyValueResponse {
+    message Item {
+        required string key = 1;
+        required string value = 2;
+        optional int64 timestamp = 3;
+    }
+    repeated Item items = 1;
+}
+
+message ExceptionResponse {
+    enum Type {
+        UNKNOWN = 1;
+        UNHANDLED_MESSAGE = 2;
+        UNHANDLED_PROTOBUF_MESSAGE = 3;
+        UNHANDLED_PROTOBUF_ENVELOPE = 4;
+        ERROR_HANDLING_MESSAGE = 5;
+        NOT_EXISTS = 20;
+        ALREADY_EXISTS = 21;
+        REQUEST_PARAMETERS = 22;
+        LOCKED = 23;
+        QUOTA = 24;
+        NOT_SAVED = 25;
+    }
+    optional Type type = 1 [default = UNKNOWN];
+    optional string message = 2;
+}
+
+message Nodejs {
+    message GetRequest {
+        required string type = 1;
+        repeated string payloadString = 2;
+        repeated int32 payloadInt = 3;
+        repeated int64 payloadLong = 4;
+        repeated bool payloadBool = 5;
+    }
+}
