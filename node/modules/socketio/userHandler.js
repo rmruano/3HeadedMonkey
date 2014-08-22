@@ -488,18 +488,10 @@ function filterUserLastRoom(lastRoom) {
     page = room[2];
     if(room[3] !== undefined) gameIsDevel = room[3];
 
-    if(where == "tag" || where == "landing") { // Landings, category pages,....
-        return {type: "other", message: "Surfing Minijuegos..."};
-    }else if(where == "game" && gameIsDevel == 0){ // Game under development
-        return {type: "other", message: "Surfing Minijuegos..."};
-    }else if(where =="game") { // Production game
+    if(where =="game") {
         return {type: "game", message: page};
-    }else if(where =="avatars") { // Production game
-        return {type: "avatars", message: "Playing around with his avatar!"};
-    }else if(where =="community") { // Production game
-        return {type: "community", message: "in community"};
     }else { // Page unknown
-        return {type: "other", message: "Surfing Minijuegos"};
+        return {type: "other", message: "Surfing ..."};
     }
 }
 

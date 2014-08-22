@@ -5,8 +5,7 @@ A discarded POC of a Websockets server for online presence services in NodeJS fe
 
 - Socketio for the websockets server
 - A small REST server
-- Protocol buffers messaging
-- Communication with a backend TCP server to read friends
+- Communication with a backend TCP server to read friends w/protocol buffers
 - Statsd metrics to track usage
 
 Please be noticed that this server was built just to test performance, so, it has not received the love it deserves.
@@ -26,8 +25,8 @@ node server.js dev 8080 8081
 Full syntax: node server.js [dev|prod] [websockets-port] [rest-port]
 ```
 
-Protocol buffers & friends loading
-----------------------------------
+Protocol buffers
+----------------
 
 Protocol buffers is used to communicate with one of our back-end services (known as minivega) to retrieve the user friends.
 Take a look at minivega.js, where all the communication is performed,  all messages are encoded into a common envelope,

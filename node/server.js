@@ -42,7 +42,7 @@ var options = {
         socketio = socketio.listen(socketPort, {log:false});
         //socketio.server.removeListener('request', socketio.server.listeners('request')[0]);
         metricsClient = new StatsD({host: 'mj-stats'});
-        minivega.init("mj-minivega", 40001, metricsClient,{retries:3, log:false, productionMode: productionMode});
+        minivega.init("localhost", 40001, metricsClient,{retries:3, log:false, productionMode: productionMode});
     } else {
         console.log("Starting server (DEV environment)... Use 'node server.js prod' to use the PROD environment.");
         options.environment = "dev";
@@ -51,14 +51,14 @@ var options = {
         socketio = socketio.listen(socketPort, {log:false});
         //socketio.server.removeListener('request', socketio.server.listeners('request')[0]);
         metricsClient = false;
-        minivega.init("mj-lab", 40001, metricsClient, {retries:3, log:true, productionMode: productionMode});
+        minivega.init("localhost", 40001, metricsClient, {retries:3, log:true, productionMode: productionMode});
     }
 
 // Disable minivega connectivity through protocol buffers, you won't have this but it's provided in case you want to take a look at how it works
     minivega.disable(); // Friends won't be loaded from our backend if disabled
 
 // Allow CORS
-    socketio.set( 'origins', '*minijuegos.com*:*miniplay.com*:*minigiochi.com*:*minijogos.com*' );
+    socketio.set( 'origins', '*yourdomain.com*' );
 
 // Socket handlers
     userHandler.init(socketio, minivega, metricsClient, heapdump, options);
