@@ -19,7 +19,7 @@ How to run
 ----------------
 ```
 cd node
-npm install to download dependencies
+npm install
 node server.js dev 8080 8081
 
 Full syntax: node server.js [dev|prod] [websockets-port] [rest-port]
@@ -40,5 +40,5 @@ As you won't have it, ```minivega.disable();``` is automatically called to disab
 Why it has been dropped?
 ------------------------
 
-Due the single thread limitation, this service has a limit of 9000 concurrent connections at 300% CPU usage.
-The multi-threaded JAVA port of this service can easily handle 15000 concurrent connections with 10% CPU usage.
+Due the single thread limitation, this service had a limit of 9000 concurrent connections at 300% CPU usage.
+The multi-threaded JAVA port of this service can easily handle 15000 concurrent connections with 10% CPU usage in the same server.
