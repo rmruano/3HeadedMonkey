@@ -20,7 +20,7 @@ How to run
 ----------------
 ```
 cd node
-npm install to download dependencies
+npm install
 node server.js dev 8080 8081
 
 Full syntax: node server.js [dev|prod] [websockets-port] [rest-port]
